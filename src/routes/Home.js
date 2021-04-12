@@ -1,17 +1,6 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Movie from "../components/Movie";
-
-const GET_MOVIES = gql`
-  {
-    getMovies {
-      id
-      title
-      year
-      rating
-      genres
-    }
-  }
-`;
+import { GET_MOVIES } from "../queries/movie";
 
 const Home = () => {
   const { data, loading, error } = useQuery(GET_MOVIES);
@@ -19,7 +8,7 @@ const Home = () => {
     <div className="App">
       {loading && <div>Loading</div>}
       {loading ||
-        data?.getMovies.map((movie) => <Movie key={movie.id} {...movie} />)}
+        data?.movies.map((movie) => <Movie key={movie.id} {...movie} />)}
     </div>
   );
 };
