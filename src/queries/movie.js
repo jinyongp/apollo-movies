@@ -20,6 +20,9 @@ export const GET_MOVIES = gql`
       year
       rating
       genres
+      runtime
+      summary
+      medium_cover_image
     }
   }
 `;

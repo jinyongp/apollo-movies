@@ -1,15 +1,22 @@
 import { useQuery } from "@apollo/client";
-import Movie from "../components/Movie";
+import styled from "styled-components";
+import { Movies, TopLoader } from "../components";
 import { GET_MOVIES } from "../queries/movie";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Home = () => {
   const { data, loading, error } = useQuery(GET_MOVIES);
+  const { movies } = data || {};
   return (
-    <div className="App">
-      {loading && <div>Loading</div>}
-      {loading ||
-        data?.movies.map((movie) => <Movie key={movie.id} {...movie} />)}
-    </div>
+    <Container>
+      <TopLoader loading={loading} />
+      <Movies movies={movies} />
+    </Container>
   );
 };
 
