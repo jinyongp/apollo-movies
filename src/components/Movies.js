@@ -3,8 +3,6 @@ import Movie from "./Movie";
 
 const Container = styled.div`
   width: 80%;
-  top: 15vh;
-  position: absolute;
   padding: 1rem 2rem;
   @media (max-width: 900px) {
     width: 100%;

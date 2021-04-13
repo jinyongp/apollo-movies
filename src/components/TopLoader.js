@@ -14,6 +14,15 @@ const gradient = keyframes`
   }
 `;
 
+const visible = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -22,7 +31,9 @@ const Container = styled.div`
   background-size: 400% 400%;
   background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   align-items: center;
   animation: ${gradient} 5s infinite linear alternate;
   transition: height 0.5s cubic-bezier(0.61, 0.11, 0, 1.02);
@@ -30,6 +41,16 @@ const Container = styled.div`
     height: 10vh;
     flex-direction: row;
   }
+`;
+
+const Title = styled.h1`
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin: auto;
+  letter-spacing: 0.2rem;
+  opacity: 0;
+  animation: ${visible} 0.5s ease 0.5s 1 forwards;
 `;
 
 const TopLoader = ({ loading }) => {
@@ -49,7 +70,7 @@ const TopLoader = ({ loading }) => {
   else
     return (
       <Container className="load">
-        <LoadingSVG scale={loading ? 1 : 0.6} />
+        <Title>Apollo Movie</Title>
       </Container>
     );
 };

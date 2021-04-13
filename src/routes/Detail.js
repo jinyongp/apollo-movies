@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_MOVIE } from "../queries/movie";
-import LoadingSVG from "../components/LoadingSVG";
+import { Movies, LoadingSVG } from "../components";
 import styled, { keyframes } from "styled-components";
 
 const Container = styled.div`
@@ -26,9 +26,9 @@ const Left = styled.div`
   width: ${({ $loading }) => ($loading ? 100 : 60)}%;
   transition: width 0.5s cubic-bezier(0.61, 0.11, 0, 1.02);
   z-index: 1;
-  height: 100%;
   background-size: 400% 400%;
   background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  background-attachment: scroll;
   animation: ${gradient} 10s infinite linear alternate;
   display: flex;
   flex-direction: column;
@@ -47,17 +47,27 @@ const Year = styled.span`
   color: white;
   font-size: 2rem;
   font-weight: 200;
-  margin: 1.5rem;
-  margin-right: 0;
+  margin: 1rem;
 `;
 
 const Summary = styled.p`
   color: white;
+  max-height: 50%;
+  overflow-y: scroll;
   font-size: 1.2rem;
   font-weight: 300;
   line-height: 1.7rem;
   margin: 2rem 0 2rem 3rem;
   width: 50%;
+  padding: 1rem;
+  &::-webkit-scrollbar {
+    background-color: #0000;
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1000px;
+  }
 `;
 
 const Info = styled.div`
@@ -75,6 +85,7 @@ const Genre = styled.div`
   background-color: #ccc;
   border-radius: 20px;
   padding: 5px;
+  margin-left: 3px;
   font-size: 0.8rem;
   font-weight: 600;
   color: white;
@@ -95,14 +106,17 @@ const Poster = styled.img`
   max-height: 90%;
   border-radius: 15px;
   object-fit: cover;
+  box-shadow: 0 2px 10px 2px gray;
 `;
+
+const MovieWrapper = styled.div``;
 
 const Detail = () => {
   const { id } = useParams();
   const { data, loading, error } = useQuery(GET_MOVIE, {
     variables: { id: +id },
   });
-  const { movie } = data || {};
+  const { movie, suggestions } = data || {};
   const {
     title,
     year,
@@ -129,8 +143,8 @@ const Detail = () => {
             {title}
           </Title>
           <Genres>
-            {genres?.map((genre) => (
-              <Genre>{genre}</Genre>
+            {genres?.map((genre, index) => (
+              <Genre key={index}>{genre}</Genre>
             ))}
           </Genres>
           <Summary>{description_full}</Summary>
