@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import LoadingSVG from "./LoadingSVG";
 
 const gradient = keyframes`
   0% {
@@ -31,32 +32,6 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.h2`
-  position: absolute;
-  width: 300px;
-  height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LoadingSVG = styled.img.attrs({
-  src: "/assets/hearts.svg",
-  alt: "Loading...",
-})`
-  display: block;
-  margin: 0 auto;
-  transition: transform 0.3s 0.1s cubic-bezier(0.61, 0.11, 0, 1.02);
-  &.loading-icon {
-    transform: scale(0.6);
-  }
-`;
-
 const TopLoader = ({ loading }) => {
   useEffect(() => {
     window.scrollTo({
@@ -74,10 +49,7 @@ const TopLoader = ({ loading }) => {
   else
     return (
       <Container className="load">
-        <Title>
-          <p>Apollo Movie</p>
-        </Title>
-        <LoadingSVG className="loading-icon" />
+        <LoadingSVG scale={loading ? 1 : 0.6} />
       </Container>
     );
 };

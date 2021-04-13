@@ -8,6 +8,9 @@ export const GET_MOVIE = gql`
       year
       rating
       genres
+      runtime
+      description_full
+      large_cover_image
     }
   }
 `;
@@ -16,12 +19,6 @@ export const GET_MOVIES = gql`
   {
     movies {
       id
-      title
-      year
-      rating
-      genres
-      runtime
-      summary
       medium_cover_image
     }
   }
